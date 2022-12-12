@@ -25,7 +25,7 @@ export default function SubjectForm() {
 
     // Funcion que consulta los grupos. Setea los grupos con el hook
 
-    const response = await fetch('http://localhost:4000/groups', {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/groups`, {
       method: 'GET',
       headers: { "content-type": 'application/json', "accept": 'application/json' },
     })
@@ -37,7 +37,7 @@ export default function SubjectForm() {
 
     // Funcion consulta materia por id solo en caso de edicion
     const id = parseInt(subjectId)
-    const response = await fetch(`http://localhost:4000/subjects/${id}`)
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects/${id}`)
     const data = await response.json()
     setSubject({
       grupoId: data.grupo_id,
@@ -69,13 +69,13 @@ export default function SubjectForm() {
 
     if (isEditing) {
       const id = parseInt(params.id)
-      await fetch(`http://localhost:4000/subjects/${id}`, {
+      await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects/${id}`, {
         method: 'PUT',
         body: JSON.stringify(subject),
         headers: { "content-type": 'application/json' },
       });
     } else {
-      await fetch('http://localhost:4000/subjects', {
+      await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects`, {
         method: 'POST',
         body: JSON.stringify(subject),
         headers: { "content-type": 'application/json' },

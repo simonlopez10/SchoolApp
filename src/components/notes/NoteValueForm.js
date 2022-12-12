@@ -21,14 +21,14 @@ export default function NoteValueForm() {
 
 
     const loadStudent = async (id) => {
-        const response = await fetch(`http://localhost:4000/students/${id}`)
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/students/${id}`)
         const data = await response.json()
         setStudent(`${data.nombre_est} ${data.apellido_est}`)
         loadSubjects(data.grupo_id)
     } 
 
     const loadSubjects = async (grupoId) => {
-        const response = await fetch(`http://localhost:4000/subjects/bygroup/${grupoId}`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects/bygroup/${grupoId}`, {
             method: 'GET',
             headers: { "content-type": 'application/json', "accept": 'application/json' },
         })
@@ -38,7 +38,7 @@ export default function NoteValueForm() {
     }
 
     const loadNoteNames = async () => {
-        const response = await fetch('http://localhost:4000/notes', {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/notes`, {
             method: 'GET',
             headers: { "content-type": 'application/json', "accept": 'application/json' },
         })
@@ -51,7 +51,7 @@ export default function NoteValueForm() {
         setNote({ ...note, [e.target.name]: e.target.value })
         const materia_id = e.target.value
 
-        const response = await fetch(`http://localhost:4000/notes/bysubject/${materia_id}`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/notes/bysubject/${materia_id}`, {
             method: 'GET',
             headers: { "content-type": 'application/json', "accept": 'application/json' },
         })

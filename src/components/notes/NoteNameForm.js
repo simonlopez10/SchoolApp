@@ -27,7 +27,7 @@ export default function NoteNameForm() {
 
         // Funcion que consulta los grupos para ponerlos en el formulario
 
-        const response = await fetch('http://localhost:4000/groups', {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/groups`, {
             method: 'GET',
             headers: { "content-type": 'application/json', "accept": 'application/json' },
         })
@@ -39,7 +39,7 @@ export default function NoteNameForm() {
 
         // Funcion consulta materia por id solo en caso de edicion
         const id = parseInt(groupId)
-        const response = await fetch(`http://localhost:4000/subjects/bygroup/${id}`)
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects/bygroup/${id}`)
         const data = await response.json()
         setSubjects(data)
     };
@@ -48,7 +48,7 @@ export default function NoteNameForm() {
 
         // Funcion consulta estudiante por id solo en caso de edicion
         const id = parseInt(noteId)
-        const response = await fetch(`http://localhost:4000/notes/${id}`)
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/notes/${id}`)
         const data = await response.json()
         
         getSubject(data.grupo_id);
@@ -79,7 +79,7 @@ export default function NoteNameForm() {
     const handleGroupChange = async (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
         const groupId = parseInt(e.target.value)
-        const response = await fetch(`http://localhost:4000/subjects/bygroup/${groupId}`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects/bygroup/${groupId}`, {
             method: 'GET',
             headers: { "content-type": 'application/json', "accept": 'application/json' },
         })
@@ -100,13 +100,13 @@ export default function NoteNameForm() {
 
         if (isEditing) {
             const id = parseInt(params.id)
-            await fetch(`http://localhost:4000/notes/${id}`, {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/notes/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(note),
                 headers: { "content-type": 'application/json' },
             });
         } else {
-            await fetch('http://localhost:4000/notes', {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/notes`, {
                 method: 'POST',
                 body: JSON.stringify(note),
                 headers: { "content-type": 'application/json' },

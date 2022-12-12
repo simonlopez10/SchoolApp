@@ -25,7 +25,7 @@ export default function GroupForm() {
          // Funcion consulta grupo por id solo en caso de edicion
 
         const id = parseInt(groupId)
-        const response = await fetch(`http://localhost:4000/groups/${id}`)
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/groups/${id}`)
         const data = await response.json()
 
         console.log(data)
@@ -51,14 +51,14 @@ export default function GroupForm() {
 
         if (isEditing) {
             const id = parseInt(params.id)
-            await fetch(`http://localhost:4000/groups/${id}`, {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/groups/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(group),
                 headers: { "content-type": 'application/json' },
             });
         } else {
             console.log('estoy creando')
-            await fetch("http://localhost:4000/groups", {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/groups`, {
                 method: 'POST',
                 body: JSON.stringify(group),
                 headers: { "content-type": 'application/json' },

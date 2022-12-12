@@ -24,7 +24,7 @@ export default function SignIn() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const response = await fetch(`http://localhost:4000/login`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
             method: 'POST',
             body: JSON.stringify({
                 email: data.get('email'),

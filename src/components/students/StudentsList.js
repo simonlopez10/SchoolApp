@@ -14,7 +14,7 @@ export default function StudentsList() {
 
         // get a endpoint de estudiantes para traer el listado
 
-        const response = await fetch('http://localhost:4000/students');
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/students`);
         const data = await response.json()
 
         // Organiza la info de la respuesta para entregarla de una forma que le sirva a la tabla
@@ -70,7 +70,7 @@ export default function StudentsList() {
                 apellido: row.apellido_est,
                 estado: row.estado_estudiante ? false : true
             }
-            const response = await fetch(`http://localhost:4000/students/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/students/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(body),   // Enviamos el body para el id del estudiante que vamos a editar
                 headers: { "content-type": 'application/json', 'accept': 'application/json' },

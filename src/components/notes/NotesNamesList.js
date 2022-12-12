@@ -13,7 +13,7 @@ export default function NotesNamesList() {
 
         // get a endpoint de grupos para traer listado de grupos
 
-        const response = await fetch('http://localhost:4000/notes')
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/notes`)
         const data = await response.json()
         console.log(data)
         // Organiza la info de la respuesta para entregarla de una forma que le sirva a la tabla

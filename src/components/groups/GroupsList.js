@@ -70,7 +70,7 @@ export default function GroupsList() {
                 siglas: row.siglas_grupo,
                 estado: row.estado_grupo ? false : true
             }
-            const response = await fetch(`${process.env.SERVER_URL}/groups/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/groups/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(body),   // Enviamos el body para el id del estudiante que vamos a editar
                 headers: { "content-type": 'application/json', 'accept': 'application/json' },

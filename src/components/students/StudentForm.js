@@ -25,7 +25,7 @@ export default function StudentForm() {
 
         // Funcion que consulta los grupos. Setea los grupos con el hook
 
-        const response = await fetch('http://localhost:4000/groups', {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/groups`, {
             method: 'GET',
             headers: { "content-type": 'application/json', "accept": 'application/json' },
         })
@@ -37,7 +37,7 @@ export default function StudentForm() {
 
         // Funcion consulta estudiante por id solo en caso de edicion
         const id = parseInt(studentId)
-        const response = await fetch(`http://localhost:4000/students/${id}`)
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/students/${id}`)
         const data = await response.json()
         setStudent({
             grupoId: data.grupo_id,
@@ -70,13 +70,13 @@ export default function StudentForm() {
 
         if (isEditing) {
             const id = parseInt(params.id)
-            await fetch(`http://localhost:4000/students/${id}`, {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/students/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(student),
                 headers: { "content-type": 'application/json' },
             });
         } else {
-            await fetch('http://localhost:4000/students', {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/students`, {
                 method: 'POST',
                 body: JSON.stringify(student),
                 headers: { "content-type": 'application/json' },

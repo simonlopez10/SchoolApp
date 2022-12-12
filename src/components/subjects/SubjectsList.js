@@ -14,7 +14,7 @@ export default function SubjectsList() {
 
         // get a endpoint de materias para traer el listado
 
-        const response = await fetch('http://localhost:4000/subjects');
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects`);
         const data = await response.json()
 
         // Organiza la info de la respuesta para entregarla de una forma que le sirva a la tabla
@@ -69,7 +69,7 @@ export default function SubjectsList() {
                 nombre: row.nombre_materia,
                 estado: row.estado_materia ? false : true
             }
-            const response = await fetch(`http://localhost:4000/subjects/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/subjects/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(body),   // Enviamos el body para el id del estudiante que vamos a editar
                 headers: { "content-type": 'application/json', 'accept': 'application/json' },
