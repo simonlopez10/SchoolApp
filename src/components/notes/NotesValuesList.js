@@ -14,11 +14,11 @@ export default function NotesList() {
 
         // get a endpoint de grupos para traer listado de grupos
 
-        const response = await fetch('http://localhost:4000/notes')
+        const response = await fetch('http://localhost:4000/note/values')
         const data = await response.json()
         console.log(data)
         // Organiza la info de la respuesta para entregarla de una forma que le sirva a la tabla
-        setNotes(data.map(({ nota_id, nombre_nota, nombre_materia, siglas_grupo, nombre_grupo, materia_id, grupo_id }) => {
+        setNotes(data.map(({ nota_id, nombre_nota, nombre_materia, siglas_grupo, nombre_grupo, materia_id, grupo_id, nombre_est, valor_nota, apellido_est }) => {
             return (
                 {
                     id: nota_id,
@@ -27,7 +27,10 @@ export default function NotesList() {
                     nombre_grupo,
                     siglas_grupo,
                     nombre_materia,
-                    materia_id
+                    materia_id,
+                    nombre_est,
+                    apellido_est,
+                    valor_nota
                 }
             )
         }))
@@ -39,10 +42,11 @@ export default function NotesList() {
 
 
     const columns = [
-        { field: 'siglas_grupo', headerName: 'GROUP AB', width: 200 },
-        { field: 'nombre_grupo', headerName: 'GROUP', width: 200 },
+        { field: 'nombre_est', headerName: 'STUDENT NAME', width: 200 },
+        { field: 'apellido_est', headerName: 'STUDENT LASTNAME', width: 200 },
         { field: 'nombre_materia', headerName: 'SUBJECT', width: 200 },
         { field: 'nombre_nota', headerName: 'NOTE NAME', width: 200 },
+        { field: 'valor_nota', headerName: 'NOTE VALUE', width: 200 }
     ]
 
     return (

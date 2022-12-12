@@ -1,10 +1,22 @@
 import { AppBar, Box, Button, Container, Toolbar, Typography, IconButton } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, use, useLocation } from 'react-router-dom';
+
+
 
 
 export default function NavBar() {
 
     const navigate = useNavigate();
+    const location = useLocation();
+   
+    if (['/login', '/signup'].includes(location.pathname)){
+        return null;
+    }
+
+    const handelLogout = () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -35,7 +47,7 @@ export default function NavBar() {
                             Notes values
                         </Button>
 
-                        <Button variant="outlined" color="error" sx={{marginLeft: 2}}>
+                        <Button variant="outlined" color="error" sx={{marginLeft: 2}} onClick={() => handelLogout()}>
                             logout
                         </Button>
                     </Toolbar>

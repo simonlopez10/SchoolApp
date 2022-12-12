@@ -66,6 +66,22 @@ export default function NoteValueForm() {
     }
 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const body = {
+            estudiante_id: params.id,
+            ...note
+        }
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/note/grade`, {
+            method: 'POST',
+            body: JSON.stringify(body),   // Enviamos el body para el id del estudiante que vamos a editar
+            headers: { "content-type": 'application/json', 'accept': 'application/json' },
+        });
+        const data = await response.json()
+    }
+
+
     useEffect(() => {
         loadStudent(params.id)
     }, [])
@@ -90,7 +106,7 @@ export default function NoteValueForm() {
 
                         {/*----------------------------INICIO DEL FORMULARIO------------------------------ */}
 
-                        <form /*onSubmit={handleSubmit}*/ >
+                         <form onSubmit={handleSubmit} > 
                             <TextField
                                     variant='filled'
                                     label='STUDENT NAME'

@@ -12,30 +12,31 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const theme = createTheme();
 
 export default function SignIn() {
-    const handleSubmit = (event) => {
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        const response = await fetch(`http://localhost:4000/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: data.get('email'),
+                contrasena: data.get('password')
+            }),
+            headers: { "content-type": 'application/json', 'accept': 'application/json' },
         });
+        const userInfo = await response.json()
+        if (userInfo.success) {
+            localStorage.setItem('token', userInfo.token)
+            navigate('/groups/list')
+        }
     };
 
     return (
@@ -77,10 +78,6 @@ export default function SignIn() {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
                         <Button
                             type="submit"
                             fullWidth
@@ -89,21 +86,8 @@ export default function SignIn() {
                         >
                             Sign In
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );

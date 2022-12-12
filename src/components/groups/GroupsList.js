@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Checkbox } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
+import NavBar from '../NavBar';
+
 
 
 export default function GroupsList() {
 
     // HOOKS
+
     const [groups, setGroups] = useState([])
 
     const loadGroups = async () => {
 
         // get a endpoint de grupos para traer listado de grupos
-
-        const response = await fetch('http://localhost:4000/groups')
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/groups`)
         const data = await response.json()
 
         // Organiza la info de la respuesta para entregarla de una forma que le sirva a la tabla
@@ -68,7 +70,7 @@ export default function GroupsList() {
                 siglas: row.siglas_grupo,
                 estado: row.estado_grupo ? false : true
             }
-            const response = await fetch(`http://localhost:4000/groups/${id}`, {
+            const response = await fetch(`${process.env.SERVER_URL}/groups/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify(body),   // Enviamos el body para el id del estudiante que vamos a editar
                 headers: { "content-type": 'application/json', 'accept': 'application/json' },
@@ -114,6 +116,8 @@ export default function GroupsList() {
     // Aqui empieza el JSX
     return (
         <>
+
+
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h1>GROUPS</h1>
                 <Button variant='contained' color='primary' sx={{ padding: -5, marginTop: 3, marginBottom: 3 }} onClick={() => navigate("/groups/form")}>
@@ -139,6 +143,7 @@ export default function GroupsList() {
                     }}
                 />
             </div>
+
         </>
 
 
