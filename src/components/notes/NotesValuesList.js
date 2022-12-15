@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 export default function NotesList() {
@@ -53,9 +53,7 @@ export default function NotesList() {
         <>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h1>NOTES VALUES</h1>
-                <Button variant='contained' color='primary' sx={{ padding: -5, marginTop: 3, marginBottom: 3 }} onClick={() => navigate("/notes/add")}>
-                    CREATE NOTE VALUE
-                </Button>
+                <Link style={{textDecoration: 'none', color: 'white'}} to= {"/students/list"}><p style={{marginTop: "30px", fontSize: "20px"}}>To create note value go to students and click in add note (➕) </p> </Link>
             </Box>
 
 
